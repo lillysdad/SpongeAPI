@@ -26,6 +26,7 @@
 package org.spongepowered.api;
 
 import org.spongepowered.api.service.persistence.data.DataContainer;
+import org.spongepowered.api.world.PortalType;
 import org.spongepowered.api.world.gen.WorldGenerator;
 import com.google.common.base.Optional;
 import org.spongepowered.api.attribute.Attribute;
@@ -1198,5 +1199,9 @@ public interface GameRegistry {
      * @return The new GeneratorType
      */
     GeneratorType registerGeneratorType(String name, Callable<WorldGenerator> generator, DataContainer settings);
+
+    Optional<PortalType> getPortalType(String name);
+
+    Collection<PortalType> getPortalTypes();
 
 }

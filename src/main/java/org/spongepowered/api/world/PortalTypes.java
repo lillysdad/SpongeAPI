@@ -21,17 +21,18 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-package org.spongepowered.api.event.entity;
-
-import org.spongepowered.api.event.world.PortalEvent;
-
-/**
- * An event when an entity enters a portal.
  *
- * <p>The portal can be any type of portal, may teleport
- * and it may not teleport.</p>
+ *
  */
-public interface EntityEnterPortalEvent extends EntityEvent, PortalEvent {
+
+package org.spongepowered.api.world;
+
+public final class PortalTypes {
+
+    public static final PortalType NETHER = null;
+    public static final PortalType END = null;
+
+    private PortalTypes() {
+    }
 
 }

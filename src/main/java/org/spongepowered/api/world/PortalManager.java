@@ -21,17 +21,32 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- */
-package org.spongepowered.api.event.entity;
-
-import org.spongepowered.api.event.world.PortalEvent;
-
-/**
- * An event when an entity enters a portal.
  *
- * <p>The portal can be any type of portal, may teleport
- * and it may not teleport.</p>
+ *
  */
-public interface EntityEnterPortalEvent extends EntityEvent, PortalEvent {
+
+package org.spongepowered.api.world;
+
+public interface PortalManager {
+
+    PortalManager setSearchRadius(int radius);
+
+    int getSearchRadius();
+
+    PortalManager setCreationRadius(int radius);
+
+    int getCreationRadius();
+
+    boolean getCanCreatePortal();
+
+    void setCanCreatePortal(boolean create);
+
+    Location findOrCreate(Location location);
+
+    Location findPortal(Location location);
+
+    boolean createPortal(Location location);
+
+    boolean canCreatePortal(Location location);
 
 }

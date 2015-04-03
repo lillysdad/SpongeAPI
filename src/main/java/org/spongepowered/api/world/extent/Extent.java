@@ -40,7 +40,7 @@ import java.util.Collection;
 /**
  * Contains blocks, tile entities, entities, and possibly other game objects.
  */
-public interface Extent extends EntityUniverse, TileEntityVolume, WeatherUniverse, BiomeArea {
+public interface Extent extends EntityUniverse, TileEntityVolume, WeatherUniverse, BiomeArea, PortalUniverse {
 
     /**
      * Get a representation of the block at the given position.

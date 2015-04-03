@@ -24,12 +24,14 @@
  */
 package org.spongepowered.api.event.entity;
 
+import org.spongepowered.api.event.world.PortalEvent;
+
 /**
  * An event when an entity exits a portal.
  *
  * <p>The portal can be any type of portal, may teleport
  * and it may not teleport.</p>
  */
-public interface EntityExitPortalEvent extends EntityEvent {
+public interface EntityExitPortalEvent extends EntityEvent, PortalEvent {
 
 }
