@@ -28,15 +28,15 @@
 package org.spongepowered.api.world.extent;
 
 import com.google.common.base.Optional;
-import org.spongepowered.api.world.PortalManager;
+import org.spongepowered.api.world.Teleporter;
 import org.spongepowered.api.world.PortalType;
 
 import java.util.Collection;
 
 public interface PortalUniverse {
 
-    Collection<PortalManager> getPortalManagers();
+    Collection<Teleporter> getPortalManagers();
 
-    Optional<PortalManager> getPortalManager(PortalType portalType);
+    Optional<Teleporter> getPortalManager(PortalType portalType);
 
 }

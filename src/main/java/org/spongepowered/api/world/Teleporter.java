@@ -27,13 +27,13 @@
 
 package org.spongepowered.api.world;
 
-public interface PortalManager {
+public interface Teleporter {
 
-    PortalManager setSearchRadius(int radius);
+    Teleporter setSearchRadius(int radius);
 
     int getSearchRadius();
 
-    PortalManager setCreationRadius(int radius);
+    Teleporter setCreationRadius(int radius);
 
     int getCreationRadius();
 

@@ -29,11 +29,11 @@ package org.spongepowered.api.event.world;
 
 import org.spongepowered.api.event.GameEvent;
 import org.spongepowered.api.world.Location;
-import org.spongepowered.api.world.PortalManager;
+import org.spongepowered.api.world.Teleporter;
 
 public interface PortalEvent extends GameEvent {
 
-    PortalManager getPortalManager();
+    Teleporter getPortalManager();
 
     Location getPortalLocation();
 
