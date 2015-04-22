@@ -26,7 +26,7 @@ package org.spongepowered.api.world.gen.populators;
 
 import org.spongepowered.api.data.manipulators.MobSpawnerData;
 import org.spongepowered.api.util.WeightedRandomEntity;
-import org.spongepowered.api.util.WeightedRandomItemStack;
+import org.spongepowered.api.util.WeightedRandomItem;
 import org.spongepowered.api.world.gen.Populator;
 
 import java.util.Collection;
@@ -69,7 +69,7 @@ public interface Dungeon extends Populator {
      * 
      * @return The contents list
      */
-    List<WeightedRandomItemStack> getPossibleContents();
+    List<WeightedRandomItem> getPossibleContents();
 
     /**
      * Gets the number of items which will spawn per chest.
@@ -191,24 +191,24 @@ public interface Dungeon extends Populator {
         Builder possibleEntities(Collection<WeightedRandomEntity> entities);
 
         /**
-         * Defines a number of {@link WeightedRandomItemStack}s from which items
+         * Defines a number of {@link WeightedRandomItem}s from which items
          * will be randomly selected based on weight in order to calculate the
          * contents of chests placed within the dungeon.
          *
          * @param items The possible items
          * @return This builder, for chaining
          */
-        Builder possibleItems(WeightedRandomItemStack... items);
+        Builder possibleItems(WeightedRandomItem... items);
 
         /**
-         * Defines a number of {@link WeightedRandomItemStack}s from which items
+         * Defines a number of {@link WeightedRandomItem}s from which items
          * will be randomly selected based on weight in order to calculate the
          * contents of chests placed within the dungeon.
          *
          * @param items The possible items
          * @return This builder, for chaining
          */
-        Builder possibleItems(Collection<WeightedRandomItemStack> items);
+        Builder possibleItems(Collection<WeightedRandomItem> items);
 
         /**
          * Sets the number of items which will spawn per chest.
