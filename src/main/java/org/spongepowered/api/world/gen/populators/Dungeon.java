@@ -25,8 +25,8 @@
 package org.spongepowered.api.world.gen.populators;
 
 import org.spongepowered.api.data.manipulators.MobSpawnerData;
-import org.spongepowered.api.util.WeightedRandomEntity;
-import org.spongepowered.api.util.WeightedRandomItem;
+import org.spongepowered.api.util.weighted.WeightedRandomEntity;
+import org.spongepowered.api.util.weighted.WeightedRandomItem;
 import org.spongepowered.api.world.gen.Populator;
 
 import java.util.Collection;

@@ -22,52 +22,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.util;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+package org.spongepowered.api.util.weighted;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.ImmutableList;
+import org.spongepowered.api.data.DataManipulator;
+import org.spongepowered.api.entity.EntityType;
+
+import java.util.List;
 
 /**
- * Represents an object with a numerical weight used for random selection from a
- * collection of weighted types.
- * 
- * @param <T> The object type
+ * Represents an entity type with a numerical weight used for random selection
+ * from a collection of weighted types.
  */
-public class WeightedRandomObject<T> {
+public class WeightedRandomEntity extends WeightedRandomObject<EntityType> {
 
-    protected final T object;
-    protected final int weight;
+    private ImmutableList<DataManipulator<?>> additionalProperties;
 
     /**
-     * Creates a new {@link WeightedRandomObject}.
+     * Creates a new {@link WeightedRandomEntity} with no additional properties.
      * 
-     * @param object The object
+     * @param object The entity type
      * @param weight The weight
      */
-    public WeightedRandomObject(T object, int weight) {
-        checkArgument(weight >= 0, "Object's weight cannot be negative");
-        this.object = checkNotNull(object, "object");
-        this.weight = weight;
+    public WeightedRandomEntity(EntityType object, int weight) {
+        super(object, weight);
+        this.additionalProperties = ImmutableList.of();
     }
 
     /**
-     * Gets the object.
+     * Creates a new {@link WeightedRandomEntity} with the given additional
+     * properties.
      * 
-     * @return The object
+     * @param object The entity type
+     * @param weight The weight
+     * @param extraProperties The additional properties to apply to the entity
      */
-    public T get() {
-        return this.object;
+    public WeightedRandomEntity(EntityType object, int weight, DataManipulator<?>... extraProperties) {
+        super(object, weight);
+        this.additionalProperties = ImmutableList.copyOf(extraProperties);
     }
-
+    
     /**
-     * Gets the weight of this object.
+     * Gets the additional properties to apply to the entity.
      *
-     * @return The weight
+     * @return The additional properties
      */
-    public int getWeight() {
-        return this.weight;
+    public List<DataManipulator<?>> getAdditionalProperties() {
+        return this.additionalProperties;
     }
 
     @Override
@@ -75,6 +77,7 @@ public class WeightedRandomObject<T> {
         return Objects.toStringHelper(this)
                 .add("object", this.object)
                 .add("weight", this.weight)
+                .add("additionalProperties", this.additionalProperties)
                 .toString();
     }
 
@@ -86,10 +89,14 @@ public class WeightedRandomObject<T> {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        WeightedRandomObject<?> object = (WeightedRandomObject<?>) obj;
+        WeightedRandomEntity object = (WeightedRandomEntity) obj;
         if (!this.object.equals(object.object)) {
+            return false;
+        }
+        if (!this.additionalProperties.equals(object.additionalProperties)) {
             return false;
         }
         return this.weight == object.weight;
     }
+
 }

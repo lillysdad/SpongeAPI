@@ -22,75 +22,59 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.world.biome;
+package org.spongepowered.api.util.weighted;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.Objects;
-import org.spongepowered.api.block.BlockState;
-import org.spongepowered.api.util.VariableAmount;
 
 /**
- * Represents a layer of BlockStates specific to a biome which may be placed in
- * during generation.
+ * Represents an object with a numerical weight used for random selection from a
+ * collection of weighted types.
+ * 
+ * @param <T> The object type
  */
-public class GroundCoverLayer {
+public class WeightedRandomObject<T> {
 
-    private BlockState block;
-    private VariableAmount depth;
+    protected final T object;
+    protected final int weight;
 
     /**
-     * Creates a new {@link GroundCoverLayer}
+     * Creates a new {@link WeightedRandomObject}.
      * 
-     * @param block
-     * @param depth
+     * @param object The object
+     * @param weight The weight
      */
-    public GroundCoverLayer(BlockState block, VariableAmount depth) {
-        this.block = checkNotNull(block, "block");
-        this.depth = checkNotNull(depth, "depth");
+    public WeightedRandomObject(T object, int weight) {
+        checkArgument(weight >= 0, "Object's weight cannot be negative");
+        this.object = checkNotNull(object, "object");
+        this.weight = weight;
     }
 
     /**
-     * Gets the {@link BlockState} for this layer.
+     * Gets the object.
      * 
-     * @return The block state
+     * @return The object
      */
-    public BlockState getBlockState() {
-        return this.block;
+    public T get() {
+        return this.object;
     }
 
     /**
-     * Sets the {@link BlockState} for this layer.
-     * 
-     * @param block The block state
+     * Gets the weight of this object.
+     *
+     * @return The weight
      */
-    public void setBlockState(BlockState block) {
-        this.block = checkNotNull(block, "block");
-    }
-
-    /**
-     * Gets a representation of the depth of this layer.
-     * 
-     * @return The depth
-     */
-    public VariableAmount getDepth() {
-        return this.depth;
-    }
-
-    /**
-     * Sets the {@link VariableAmount} representing the depth of this layer.
-     * 
-     * @param depth The new variable amount
-     */
-    public void setDepth(VariableAmount depth) {
-        this.depth = checkNotNull(depth, "depth");
+    public int getWeight() {
+        return this.weight;
     }
 
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("block", this.block)
-                .add("depth", this.depth)
+                .add("object", this.object)
+                .add("weight", this.weight)
                 .toString();
     }
 
@@ -102,13 +86,10 @@ public class GroundCoverLayer {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        GroundCoverLayer object = (GroundCoverLayer) obj;
-        if (!this.depth.equals(object.depth)) {
+        WeightedRandomObject<?> object = (WeightedRandomObject<?>) obj;
+        if (!this.object.equals(object.object)) {
             return false;
         }
-        if (!this.block.equals(object.block)) {
-            return false;
-        }
-        return true;
+        return this.weight == object.weight;
     }
 }

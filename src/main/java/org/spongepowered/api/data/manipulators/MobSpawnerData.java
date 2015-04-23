@@ -28,7 +28,7 @@ import com.google.common.base.Optional;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataManipulator;
 import org.spongepowered.api.entity.EntityType;
-import org.spongepowered.api.util.WeightedRandomEntity;
+import org.spongepowered.api.util.weighted.WeightedRandomEntity;
 
 import java.util.Collection;
 
