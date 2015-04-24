@@ -24,8 +24,9 @@
  */
 package org.spongepowered.api.world.biome;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.spongepowered.api.util.SeededVariableAmount;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.common.base.Objects;
 import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.util.VariableAmount;
@@ -37,7 +38,7 @@ import org.spongepowered.api.util.VariableAmount;
 public class GroundCoverLayer {
 
     private BlockState block;
-    private VariableAmount depth;
+    private SeededVariableAmount<Double> depth;
 
     /**
      * Creates a new {@link GroundCoverLayer}
@@ -45,7 +46,7 @@ public class GroundCoverLayer {
      * @param block
      * @param depth
      */
-    public GroundCoverLayer(BlockState block, VariableAmount depth) {
+    public GroundCoverLayer(BlockState block, SeededVariableAmount<Double> depth) {
         this.block = checkNotNull(block, "block");
         this.depth = checkNotNull(depth, "depth");
     }
@@ -69,20 +70,22 @@ public class GroundCoverLayer {
     }
 
     /**
-     * Gets a representation of the depth of this layer.
+     * Gets a representation of the depth of this layer. The variable amount
+     * will be seeded with the stone noise at generation time.
      * 
      * @return The depth
      */
-    public VariableAmount getDepth() {
+    public SeededVariableAmount<Double> getDepth() {
         return this.depth;
     }
 
     /**
-     * Sets the {@link VariableAmount} representing the depth of this layer.
+     * Sets the {@link VariableAmount} representing the depth of this layer. The
+     * variable amount will be seeded with the stone noise at generation time.
      * 
      * @param depth The new variable amount
      */
-    public void setDepth(VariableAmount depth) {
+    public void setDepth(SeededVariableAmount<Double> depth) {
         this.depth = checkNotNull(depth, "depth");
     }
 

@@ -94,6 +94,8 @@ import org.spongepowered.api.world.GeneratorType;
 import org.spongepowered.api.world.biome.BiomeType;
 import org.spongepowered.api.world.difficulty.Difficulty;
 import org.spongepowered.api.world.gen.WorldGeneratorModifier;
+import org.spongepowered.api.world.gen.types.BiomeTreeType;
+import org.spongepowered.api.world.gen.types.MushroomType;
 import org.spongepowered.api.world.weather.Weather;
 
 /**
@@ -108,6 +110,7 @@ public final class CatalogTypes {
     public static final Class<Attribute> ATTRIBUTE = Attribute.class;
     public static final Class<BannerPatternShape> BANNER_PATTERN_SHAPE = BannerPatternShape.class;
     public static final Class<BigMushroomType> BIG_MUSHROOM_TYPE = BigMushroomType.class;
+    public static final Class<BiomeTreeType> BIOME_TREE_TYPE = BiomeTreeType.class;
     public static final Class<BiomeType> BIOME_TYPE = BiomeType.class;
     public static final Class<BlockType> BLOCK_TYPE = BlockType.class;
     public static final Class<BodyPart> BODY_PART = BodyPart.class;
@@ -140,6 +143,7 @@ public final class CatalogTypes {
     public static final Class<NotePitch> NOTE_PITCH = NotePitch.class;
     public static final Class<InstrumentType> INSTRUMENT_TYPE = InstrumentType.class;
     public static final Class<ItemType> ITEM_TYPE = ItemType.class;
+    public static final Class<MushroomType> MUSHROOM_TYPE = MushroomType.class;
     public static final Class<ObjectiveDisplayMode> OBJECTIVE_DISPLAY_MODE = ObjectiveDisplayMode.class;
     public static final Class<OcelotType> OCELOT_TYPE = OcelotType.class;
     public static final Class<Operation> OPERATION = Operation.class;

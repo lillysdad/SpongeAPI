@@ -113,8 +113,8 @@ public abstract class VariableAmount {
     public abstract double getAmount(Random rand);
 
     /**
-     * Gets the amount as if from {@link #getAmount} but floored to the nearest
-     * integer equivalent.
+     * Gets the amount as if from {@link #getAmount(Random)} but floored to the
+     * nearest integer equivalent.
      * 
      * @param rand The random object
      * @return The floored amount
@@ -234,7 +234,7 @@ public abstract class VariableAmount {
                 return false;
             }
             OptionalAmount amount = (OptionalAmount) obj;
-            if(!this.inner.equals(amount.inner)) {
+            if (!this.inner.equals(amount.inner)) {
                 return false;
             }
             return amount.base == this.base && this.chance == amount.chance;

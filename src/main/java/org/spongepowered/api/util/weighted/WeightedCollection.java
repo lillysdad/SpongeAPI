@@ -34,19 +34,20 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Represents a mutable collection of weighted objects.
+ * Represents a mutable collection of weighted objects. This collection is not
+ * thread-safe and must be externally synchronized if that is required.
  * 
  * @param <T> The weighted object type
  */
-public class WeightedRandomList<T extends WeightedRandomObject<?>> implements Collection<T> {
+public class WeightedCollection<T extends WeightedObject<?>> implements Collection<T> {
 
     private final List<T> objects;
     private int totalWeight = 0;
 
     /**
-     * Creates a new {@link WeightedRandomList}.
+     * Creates a new {@link WeightedCollection}.
      */
-    public WeightedRandomList() {
+    public WeightedCollection() {
         this.objects = Lists.newArrayList();
     }
 
@@ -171,7 +172,7 @@ public class WeightedRandomList<T extends WeightedRandomObject<?>> implements Co
         private final Iterator<T> iter;
 
         protected Itr() {
-            this.iter = WeightedRandomList.this.objects.iterator();
+            this.iter = WeightedCollection.this.objects.iterator();
         }
 
         @Override
@@ -187,7 +188,7 @@ public class WeightedRandomList<T extends WeightedRandomObject<?>> implements Co
         @Override
         public void remove() {
             this.iter.remove();
-            WeightedRandomList.this.rebuildWeight();
+            WeightedCollection.this.rebuildWeight();
         }
 
     }
