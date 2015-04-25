@@ -24,6 +24,10 @@
  */
 package org.spongepowered.api.world.gen.populators;
 
+import org.spongepowered.api.block.BlockType;
+
+import java.util.Set;
+
 import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.util.VariableAmount;
 import org.spongepowered.api.world.gen.Populator;
@@ -79,6 +83,13 @@ public interface SeaFloor extends Populator {
     void setRadius(VariableAmount radius);
 
     /**
+     * Gets a mutable set of valid blocks which this populator may replace.
+     * 
+     * @return The set of valid replacement blocks
+     */
+    Set<BlockType> getValidBlocksToReplace();
+
+    /**
      * A builder for constructing {@link SeaFloor} populators.
      */
     interface Builder {
@@ -107,6 +118,14 @@ public interface SeaFloor extends Populator {
          * @return This builder, for chaining
          */
         Builder radius(VariableAmount radius);
+
+        /**
+         * Sets which block types may be replaced by this populator.
+         * 
+         * @param types The valid blocks to replace
+         * @return This builder, for chaining
+         */
+        Builder replace(BlockType... types);
 
         /**
          * Resets this builder to the default values.

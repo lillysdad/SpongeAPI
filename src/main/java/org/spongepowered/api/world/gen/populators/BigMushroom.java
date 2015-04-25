@@ -93,7 +93,7 @@ public interface BigMushroom extends Populator {
          * @param types The weighted types
          * @return This builder, for chaining
          */
-        Builder types(Collection<WeightedObject<MushroomType>>... types);
+        Builder types(Collection<WeightedObject<MushroomType>> types);
 
         /**
          * Sets the number of mushrooms which will be attempted to be spawned.
