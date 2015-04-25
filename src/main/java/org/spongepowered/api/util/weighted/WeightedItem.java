@@ -24,13 +24,19 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import com.google.common.collect.Lists;
+
+import org.spongepowered.api.item.inventory.ItemStackBuilder;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import org.spongepowered.api.data.DataManipulator;
 import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.util.VariableAmount;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Represents an item stack with a range of possible quantities and a numerical
@@ -45,11 +51,13 @@ public class WeightedItem extends WeightedObject<ItemType> {
      * Creates a new {@link WeightedEntity} with no additional properties.
      * 
      * @param object The entity type
+     * @param quantity The item quantity
      * @param weight The weight
      */
-    public WeightedItem(ItemType object, int weight) {
+    public WeightedItem(ItemType object, VariableAmount quantity, int weight) {
         super(object, weight);
         this.additionalProperties = ImmutableList.of();
+        this.quantity = quantity;
     }
 
     /**
@@ -57,12 +65,14 @@ public class WeightedItem extends WeightedObject<ItemType> {
      * properties.
      * 
      * @param object The entity type
+     * @param quantity The item quantity
      * @param weight The weight
-     * @param extraProperties The additional properties to apply to the entity
+     * @param collection The additional properties to apply to the entity
      */
-    public WeightedItem(ItemType object, int weight, DataManipulator<?>... extraProperties) {
+    public WeightedItem(ItemType object, VariableAmount quantity, int weight, Collection<? extends DataManipulator<?>> collection) {
         super(object, weight);
-        this.additionalProperties = ImmutableList.copyOf(extraProperties);
+        this.additionalProperties = ImmutableList.copyOf(collection);
+        this.quantity = quantity;
     }
 
     /**
@@ -81,6 +91,39 @@ public class WeightedItem extends WeightedObject<ItemType> {
      */
     public List<DataManipulator<?>> getAdditionalProperties() {
         return this.additionalProperties;
+    }
+
+    /**
+     * Gets a collection of between zero and {@code maxStacks} new
+     * {@link ItemStack}s based on this {@link WeightedItem}.
+     * 
+     * @param builder The builder to use to create the item stacks
+     * @param rand The random object to use
+     * @param maxStacks The maximum number of item stacks that may be created
+     * @return The item stacks
+     */
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public Collection<ItemStack> getRandomItem(ItemStackBuilder builder, Random rand, int maxStacks) {
+        int total = this.quantity.getFlooredAmount(rand);
+        if (total <= 0) {
+            return Lists.newArrayList();
+        }
+        ItemType type = get();
+        int max = type.getMaxStackQuantity();
+        if (total / max > maxStacks) {
+            total = maxStacks * max;
+        }
+        List<ItemStack> result = Lists.newArrayList();
+        for (int i = 0; i < total;) {
+            int n = (i + type.getMaxStackQuantity() > total) ? total - i : type.getMaxStackQuantity();
+            builder.reset().itemType(type).quantity(n);
+            for (DataManipulator data : this.additionalProperties) {
+                builder.itemData(data);
+            }
+            result.add(builder.build());
+            i += n;
+        }
+        return result;
     }
 
     @Override
