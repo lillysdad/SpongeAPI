@@ -27,9 +27,14 @@ package org.spongepowered.api.event.cause;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.event.cause.reason.Reason;
 import org.spongepowered.api.world.Location;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.annotation.Nullable;
 
@@ -50,50 +55,54 @@ import javax.annotation.Nullable;
  */
 public class Cause {
 
-    private final Optional<Cause> parent;
-    private final Object cause;
-    private final Optional<Reason> reason;
+    private final Object[] cause;
 
     /**
      * Create a new cause instance.
      *
-     * @param parent An optional parent
-     * @param cause The causing object (may be a block, entity, etc.)
-     * @param reason An optional reason
+     * @param cause An array of causes
      */
-    public Cause(@Nullable Cause parent, Object cause, @Nullable Reason reason) {
+    public Cause(Object... cause) {
         checkNotNull(cause, "cause");
-        this.parent = Optional.fromNullable(parent);
-        this.cause = cause;
-        this.reason = Optional.fromNullable(reason);
+        for (Object aCause : cause) {
+            checkNotNull(aCause, "Null cause element!");
+        }
+        this.cause = Arrays.copyOf(cause, cause.length);
     }
 
-    /**
-     * Get the parent cause of this cause.
-     *
-     * @return The parent cause
-     */
-    public Optional<Cause> getParent() {
-        return this.parent;
+    @SuppressWarnings("unchecked")
+    public <T> Optional<T> getFirst(Class<T> target) {
+        for (Object aCause : this.cause) {
+            if (target.isInstance(aCause)) {
+                return Optional.of((T) aCause);
+            }
+        }
+        return Optional.absent();
     }
 
-    /**
-     * Get the causing object (it may be an {@link Entity}, {@link Location},
-     * etc.).
-     *
-     * @return The cause
-     */
-    public Object getCause() {
-        return this.cause;
+    @SuppressWarnings("unchecked")
+    public <T> Optional<T> getLast(Class<T> target) {
+        for (int i = this.cause.length - 1; i >= 0; i--) {
+            if (target.isInstance(this.cause[i])) {
+                return Optional.of((T) this.cause[i]);
+            }
+        }
+        return Optional.absent();
     }
 
-    /**
-     * Get the reason.
-     *
-     * @return The reason
-     */
-    public Optional<Reason> getReason() {
-        return this.reason;
+    @SuppressWarnings("unchecked")
+    public <T> Collection<T> getAll(Class<T> target) {
+        ImmutableList.Builder<T> builder = ImmutableList.builder();
+        for (Object aCause : this.cause) {
+            if (target.isInstance(aCause)) {
+                builder.add((T) aCause);
+            }
+        }
+        return builder.build();
+    }
+
+    public Collection<Object> getAllCauses() {
+        return ImmutableList.copyOf(this.cause);
     }
 
 }
