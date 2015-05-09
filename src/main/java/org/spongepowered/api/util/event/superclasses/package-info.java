@@ -22,22 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.event;
+@NonnullByDefault
+package org.spongepowered.api.util.event.superclasses;
 
-import org.spongepowered.api.util.annotation.ImplementedBy;
-import org.spongepowered.api.util.event.callback.CallbackList;
-
-/**
- * An event that occurs in Sponge.
- */
-@ImplementedBy(AbstractEvent.class)
-public interface Event {
-
-    /**
-     * Get a list of callbacks.
-     *
-     * @return A list of callbacks
-     */
-    CallbackList getCallbacks();
-
-}
+import org.spongepowered.api.util.annotation.NonnullByDefault;

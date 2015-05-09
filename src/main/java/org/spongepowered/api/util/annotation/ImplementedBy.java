@@ -22,22 +22,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.event;
+package org.spongepowered.api.util.annotation;
 
-import org.spongepowered.api.util.annotation.ImplementedBy;
-import org.spongepowered.api.util.event.callback.CallbackList;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * An event that occurs in Sponge.
+ * Used to indicate the base class that a generated event class extends from.
  */
-@ImplementedBy(AbstractEvent.class)
-public interface Event {
+@Inherited
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ImplementedBy {
 
     /**
-     * Get a list of callbacks.
+     * Gets the class which serves as the base class which the generated class for this
+     * event interface will extend.
      *
-     * @return A list of callbacks
+     * @return The base class to use
      */
-    CallbackList getCallbacks();
+    Class<?> value();
 
 }
